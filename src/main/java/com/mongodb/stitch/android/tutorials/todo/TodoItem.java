@@ -17,6 +17,7 @@
 package com.mongodb.stitch.android.tutorials.todo;
 
 import org.bson.BsonBoolean;
+import org.bson.BsonDateTime;
 import org.bson.BsonDocument;
 import org.bson.BsonDouble;
 import org.bson.BsonInt32;
@@ -31,6 +32,8 @@ import org.bson.codecs.EncoderContext;
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
 
+import java.util.Date;
+
 class TodoItem {
 
   public static final String TODO_DATABASE = "todo";
@@ -44,6 +47,7 @@ class TodoItem {
   private final int item_quantity;
   private final double original_price;
   private final double sale_price;
+  private final String expiry_date;
   private final boolean checked;
 
   /** Constructs a todo item from a MongoDB document. */
@@ -56,6 +60,7 @@ class TodoItem {
     final int item_quantity,
     final double original_price,
     final double sale_price,
+    final String expiry_date,
     final boolean checked
   ) {
     this._id = id;
@@ -66,11 +71,16 @@ class TodoItem {
     this.item_quantity = item_quantity;
     this.original_price = original_price;
     this.sale_price = sale_price;
+    this.expiry_date = expiry_date;
     this.checked = false;
   }
 
   public ObjectId get_id() {
     return _id;
+  }
+
+  public String getOwner_id() {
+    return owner_id;
   }
 
   public String getStore_name() {
@@ -97,8 +107,8 @@ class TodoItem {
     return sale_price;
   }
 
-  public String getOwner_id() {
-    return owner_id;
+  public String getExpiry_date()  {
+    return expiry_date;
   }
 
   public Boolean isChecked() {
@@ -108,13 +118,14 @@ class TodoItem {
   static BsonDocument toBsonDocument(final TodoItem item) {
     final BsonDocument asDoc = new BsonDocument();
     asDoc.put(Fields.ID, new BsonObjectId(item.get_id()));
+    asDoc.put(Fields.OWNER_ID, new BsonString(item.getOwner_id()));
     asDoc.put(Fields.STORE_NAME, new BsonString(item.getStore_name()));
     asDoc.put(Fields.STORE_LOCATION, new BsonString(item.getStore_location()));
     asDoc.put(Fields.ITEM_DESCRIPTION, new BsonString(item.getItem_description()));
     asDoc.put(Fields.ITEM_QUANTITY, new BsonInt32(item.getItem_quantity()));
     asDoc.put(Fields.ORIGINAL_PRICE, new BsonDouble(item.getOriginal_price()));
     asDoc.put(Fields.SALE_PRICE, new BsonDouble(item.getSale_price()));
-    asDoc.put(Fields.OWNER_ID, new BsonString(item.getOwner_id()));
+    asDoc.put(Fields.EXPIRY_DATE, new BsonString(item.getExpiry_date()));
     asDoc.put(Fields.CHECKED, new BsonBoolean(item.isChecked()));
     return asDoc;
   }
@@ -129,19 +140,21 @@ class TodoItem {
         doc.getInt32(Fields.ITEM_QUANTITY).getValue(),
         doc.getDouble(Fields.ORIGINAL_PRICE).getValue(),
         doc.getDouble(Fields.SALE_PRICE).getValue(),
+        doc.getString(Fields.EXPIRY_DATE).getValue(),
         doc.getBoolean(Fields.CHECKED).getValue()
     );
   }
 
   static final class Fields {
     static final String ID = "_id";
+    static final String OWNER_ID = "owner_id";
     static final String STORE_NAME = "store_name";
     static final String STORE_LOCATION = "store_location";
     static final String ITEM_DESCRIPTION = "item_description";
     static final String ITEM_QUANTITY = "item_quantity";
     static final String ORIGINAL_PRICE = "original_price";
     static final String SALE_PRICE = "sale_price";
-    static final String OWNER_ID = "owner_id";
+    static final String EXPIRY_DATE = "expiry_date";
     static final String CHECKED = "checked";
   }
 

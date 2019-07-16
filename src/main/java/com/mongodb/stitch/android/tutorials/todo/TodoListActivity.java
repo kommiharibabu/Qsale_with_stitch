@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,7 +29,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ActionMenuView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,9 +79,9 @@ public class TodoListActivity extends AppCompatActivity {
                         CodecRegistries.fromCodecs(TodoItem.codec)));
 
         // Set up recycler view for to-do items
-        final RecyclerView todoRecyclerView = findViewById(R.id.rv_todo_items);
-        final RecyclerView.LayoutManager todoLayoutManager = new LinearLayoutManager(this);
-        todoRecyclerView.setLayoutManager(todoLayoutManager);
+        final AppCompatSpinner todoRecyclerView = findViewById(R.id.rv_todo_items);
+        //final ListView. todoLayoutManager = new LinearLayoutManager(this);
+        //todoRecyclerView.setLayoutManager(todoLayoutManager);
 
         // Set up adapter
         todoAdapter = new TodoAdapter(
@@ -96,7 +99,7 @@ public class TodoListActivity extends AppCompatActivity {
                         showEditItemDialog(itemId, currentTask);
                     }
                 });
-        todoRecyclerView.setAdapter(todoAdapter);
+        //todoRecyclerView.setAdapter(todoAdapter);
         doLogin();
     }
 
@@ -207,7 +210,8 @@ public class TodoListActivity extends AppCompatActivity {
 
     private void addTodoItem(final String task) {
         final TodoItem newItem = new TodoItem(new ObjectId(), userId, task, null,
-                null, 0, 0.0, 0.0, false);
+                null, 0, 0.0, 0.0, null,
+                false);
         items.insertOne(newItem)
                 .addOnSuccessListener(result -> {
                     todoAdapter.addItem(newItem);

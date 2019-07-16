@@ -15,13 +15,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/tv_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorDarkGray" />
+            android:textColor="@color/colorDarkGray"
+            android:prompt="@string/items_selection" />
 
     </LinearLayout>
 

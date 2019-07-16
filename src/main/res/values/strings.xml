@@ -5,6 +5,16 @@
     <string name="clear_checked_action_label">Clear Checked</string>
     <string name="clear_all_action_label">Clear All</string>
     <string name="edit_item_hint">Edit Item</string>
+    <string name="items_selection">Choose a planet</string>
+    <string-array name="items_array">
+        <item>store name</item>
+        <item>store location</item>
+        <item>item description</item>
+        <item>item quantity</item>
+        <item>original price</item>
+        <item>sale price</item>
+        <item>expiry date</item>
+    </string-array>
     <string name="stitch_client_app_id">qsale-mxakd</string>
     <string name="google_web_client_id">247554997227-aau0iuh1hc8t48v08j4nafm56qoc2otl.apps.googleusercontent.com</string>
 </resources>
