@@ -44,6 +44,7 @@ import org.bson.BsonObjectId;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.types.ObjectId;
+import org.json.JSONObject;
 
 public class TodoListActivity extends AppCompatActivity {
     private static final String TAG = TodoListActivity.class.getSimpleName();
@@ -91,7 +92,7 @@ public class TodoListActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void updateTask(final ObjectId itemId, final String currentTask) {
+                    public void updateTask(final ObjectId itemId, final TodoItem currentTask) {
                         showEditItemDialog(itemId, currentTask);
                     }
                 });
@@ -177,14 +178,14 @@ public class TodoListActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void showEditItemDialog(final ObjectId itemId, final String currentTask) {
+    private void showEditItemDialog(final ObjectId itemId, final TodoItem currentTask) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Edit Item");
 
         final View view = getLayoutInflater().inflate(R.layout.edit_item_dialog, null);
         final EditText input = view.findViewById(R.id.et_todo_item_task);
 
-        input.setText(currentTask);
+        input.setText(currentTask.getStore_name());
         input.setSelection(input.getText().length());
 
         builder.setView(view);
@@ -205,7 +206,8 @@ public class TodoListActivity extends AppCompatActivity {
     }
 
     private void addTodoItem(final String task) {
-        final TodoItem newItem = new TodoItem(new ObjectId(), userId, task, false);
+        final TodoItem newItem = new TodoItem(new ObjectId(), userId, task, null,
+                null, 0, 0.0, 0.0, false);
         items.insertOne(newItem)
                 .addOnSuccessListener(result -> {
                     todoAdapter.addItem(newItem);
@@ -217,7 +219,7 @@ public class TodoListActivity extends AppCompatActivity {
         final BsonObjectId docId = new BsonObjectId(itemId);
         items.updateOne(
                 new Document("_id", docId),
-                new Document("$set", new Document(TodoItem.Fields.TASK, newTask)))
+                new Document("$set", new Document(TodoItem.Fields.STORE_NAME, newTask)))
                 .addOnSuccessListener(result -> {
                     items.find(new Document("_id", docId)).first()
                             .addOnSuccessListener(item -> {

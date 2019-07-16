@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.GridView;
 import android.widget.TextView;
 import com.google.android.gms.tasks.Task;
 import java.util.HashSet;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.bson.types.ObjectId;
+import org.json.JSONObject;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoItemViewHolder> {
   private static final String TAG = TodoAdapter.class.getSimpleName();
@@ -60,8 +62,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoItemViewHo
   public void onBindViewHolder(@NonNull final TodoItemViewHolder holder, final int position) {
     final TodoItem item = todoItems.get(position);
 
-    holder.taskTextView.setText(item.getTask());
-    holder.taskCheckbox.setChecked(item.isChecked());
+    //holder.taskTextView.setNumColumns(2);
+    holder.taskTextView.setText(item.getStore_name());
+    //holder.taskCheckbox.setChecked(item.isChecked());
   }
 
   @Override
@@ -109,7 +112,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoItemViewHo
   interface ItemUpdater {
     void updateChecked(ObjectId itemId, boolean isChecked);
 
-    void updateTask(ObjectId itemId, String currentTask);
+    void updateTask(ObjectId itemId, TodoItem currentTask);
   }
 
   class TodoItemViewHolder extends RecyclerView.ViewHolder
@@ -117,19 +120,20 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoItemViewHo
           View.OnLongClickListener,
           CompoundButton.OnCheckedChangeListener {
     final TextView taskTextView;
-    final CheckBox taskCheckbox;
+    //final CheckBox taskCheckbox;
 
     TodoItemViewHolder(final View view) {
       super(view);
       taskTextView = view.findViewById(R.id.tv_task);
-      taskCheckbox = view.findViewById(R.id.cb_todo_checkbox);
+      //taskTextView = view.findViewWithTag(R.id.tv_task);
+      //taskCheckbox = view.findViewById(R.id.cb_todo_checkbox);
 
       // Set listeners
-      taskCheckbox.setOnCheckedChangeListener(this);
+      //taskCheckbox.setOnCheckedChangeListener(this);
       view.setOnClickListener(this);
       view.setOnLongClickListener(this);
-      taskCheckbox.setOnClickListener(this);
-      taskCheckbox.setOnLongClickListener(this);
+      //taskCheckbox.setOnClickListener(this);
+      //taskCheckbox.setOnLongClickListener(this);
     }
 
     @Override
@@ -145,7 +149,8 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoItemViewHo
         return;
       }
       final TodoItem item = todoItems.get(getAdapterPosition());
-      itemUpdater.updateChecked(item.get_id(), taskCheckbox.isChecked());
+      //itemUpdater.updateChecked(item.get_id(), taskCheckbox.isChecked());
+      itemUpdater.updateChecked(item.get_id(), false);
     }
 
     @Override
@@ -154,7 +159,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoItemViewHo
         return false;
       }
       final TodoItem item = todoItems.get(getAdapterPosition());
-      itemUpdater.updateTask(item.get_id(), item.getTask());
+      itemUpdater.updateTask(item.get_id(), item);
       return true;
     }
   }

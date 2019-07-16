@@ -34,13 +34,13 @@ public class LogonActivity extends AppCompatActivity {
 
     private void setupLogin() {
         setContentView(R.layout.logon);
-        enableAnonymousAuth();
+        //enableAnonymousAuth();
 
         final String googleWebClientId = getString(R.string.google_web_client_id);
         enableGoogleAuth(googleWebClientId);
     }
 
-    private void enableAnonymousAuth() {
+/*    private void enableAnonymousAuth() {
         findViewById(R.id.anon_login_button).setOnClickListener(ignored ->
                 TodoListActivity.client.getAuth().loginWithCredential(new AnonymousCredential())
                         .addOnSuccessListener(user -> {
@@ -57,7 +57,7 @@ public class LogonActivity extends AppCompatActivity {
                                             "your Stitch App ID to strings.xml?",
                                     Toast.LENGTH_LONG).show();
                         }));
-    }
+    }*/
 
 
     private void enableGoogleAuth(String googleWebClientId) {
