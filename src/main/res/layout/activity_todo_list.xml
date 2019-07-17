@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Logged in with ID "/>
 
-    <android.support.v7.widget.AppCompatSpinner
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_todo_items"
         android:layout_width="match_parent"
         android:layout_height="5dp"

@@ -30,8 +30,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ActionMenuView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +46,8 @@ import com.mongodb.stitch.android.services.mongodb.remote.RemoteMongoCollection;
 import com.mongodb.stitch.core.internal.common.BsonUtils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
+
 import org.bson.BsonObjectId;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
@@ -79,9 +84,9 @@ public class TodoListActivity extends AppCompatActivity {
                         CodecRegistries.fromCodecs(TodoItem.codec)));
 
         // Set up recycler view for to-do items
-        final AppCompatSpinner todoRecyclerView = findViewById(R.id.rv_todo_items);
-        //final ListView. todoLayoutManager = new LinearLayoutManager(this);
-        //todoRecyclerView.setLayoutManager(todoLayoutManager);
+        final RecyclerView todoRecyclerView = findViewById(R.id.rv_todo_items);
+        final RecyclerView.LayoutManager todoLayoutManager = new LinearLayoutManager(this);
+        todoRecyclerView.setLayoutManager(todoLayoutManager);
 
         // Set up adapter
         todoAdapter = new TodoAdapter(
@@ -99,7 +104,7 @@ public class TodoListActivity extends AppCompatActivity {
                         showEditItemDialog(itemId, currentTask);
                     }
                 });
-        //todoRecyclerView.setAdapter(todoAdapter);
+        todoRecyclerView.setAdapter(todoAdapter);
         doLogin();
     }
 
@@ -165,15 +170,19 @@ public class TodoListActivity extends AppCompatActivity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add Item");
 
-        final View view = getLayoutInflater().inflate(R.layout.edit_item_dialog, null);
-        final EditText input = view.findViewById(R.id.et_todo_item_task);
+        //final View view = findViewById(R.id.edit_table_layout);
 
+        final View view = getLayoutInflater().inflate(R.layout.edit_item_dialog, null);
+
+        //builder.
         builder.setView(view);
+
+        //setContentView(R.layout.edit_item_dialog);
 
         // Set up the buttons
         builder.setPositiveButton(
                 "Add",
-                (dialog, which) -> addTodoItem(input.getText().toString()));
+                (dialog, which) -> addTodoItem(null));
         builder.setNegativeButton(
                 "Cancel",
                 (dialog, which) -> dialog.cancel());
@@ -185,18 +194,18 @@ public class TodoListActivity extends AppCompatActivity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Edit Item");
 
-        final View view = getLayoutInflater().inflate(R.layout.edit_item_dialog, null);
-        final EditText input = view.findViewById(R.id.et_todo_item_task);
+        final TableLayout view = findViewById(R.id.edit_table_layout);
+        //final TableRow input = view.findViewById(R.id.et_todo_item_task);
 
-        input.setText(currentTask.getStore_name());
-        input.setSelection(input.getText().length());
+        //input.setText(currentTask.getStore_name());
+        //input.setSelection(input.getText().length());
 
         builder.setView(view);
 
         // Set up the buttons
         builder.setPositiveButton(
                 "Update",
-                (dialog, which) -> updateTodoItemTask(itemId, input.getText().toString()));
+                (dialog, which) -> updateTodoItemTask(itemId, null)); //input.getText().toString()));
         builder.setNegativeButton(
                 "Cancel",
                 (dialog, which) -> dialog.cancel());

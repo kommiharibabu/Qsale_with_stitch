@@ -124,7 +124,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoItemViewHo
 
     TodoItemViewHolder(final View view) {
       super(view);
-      taskTextView = view.findViewById(R.id.tv_task);
+      taskTextView = view.findViewById(R.id.StoreName);
       //taskTextView = view.findViewWithTag(R.id.tv_task);
       //taskCheckbox = view.findViewById(R.id.cb_todo_checkbox);
 
