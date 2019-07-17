@@ -173,6 +173,13 @@ public class TodoListActivity extends AppCompatActivity {
         //final View view = findViewById(R.id.edit_table_layout);
 
         final View view = getLayoutInflater().inflate(R.layout.edit_item_dialog, null);
+        final EditText store_name = view.findViewById(R.id.StoreName);
+        final EditText store_location = view.findViewById(R.id.StoreLocation);
+        final EditText item_description = view.findViewById(R.id.ItemDescription);
+        final EditText item_quantity = view.findViewById(R.id.ItemQuantity);
+        final EditText org_price = view.findViewById(R.id.OriginalPrice);
+        final EditText sale_price = view.findViewById(R.id.SalePrice);
+        final EditText expiry_date = view.findViewById(R.id.ExpiryDate);
 
         //builder.
         builder.setView(view);
@@ -182,7 +189,10 @@ public class TodoListActivity extends AppCompatActivity {
         // Set up the buttons
         builder.setPositiveButton(
                 "Add",
-                (dialog, which) -> addTodoItem(null));
+                (dialog, which) -> addTodoItem(store_name.getText().toString(),
+                        store_location.getText().toString(), item_description.getText().toString(),
+                        item_quantity.getText().toString(), org_price.getText().toString(),
+                        sale_price.getText().toString(), expiry_date.getText().toString()));
         builder.setNegativeButton(
                 "Cancel",
                 (dialog, which) -> dialog.cancel());
@@ -217,9 +227,18 @@ public class TodoListActivity extends AppCompatActivity {
         return items.find().into(new ArrayList<>());
     }
 
-    private void addTodoItem(final String task) {
-        final TodoItem newItem = new TodoItem(new ObjectId(), userId, task, null,
-                null, 0, 0.0, 0.0, null,
+    private void addTodoItem(final String store_name, final String store_location,
+                             final String item_description, final String item_quantity_str,
+                             final String org_price_str, final String sale_price_str,
+                             final String expiry_date) {
+
+        final int item_quantity = Integer.parseInt(item_quantity_str);
+        final Double org_price = Double.parseDouble(org_price_str);
+        final Double sale_price = Double.parseDouble(sale_price_str);
+
+
+        final TodoItem newItem = new TodoItem(new ObjectId(), userId, store_name, store_location,
+                item_description, item_quantity, org_price, sale_price, expiry_date,
                 false);
         items.insertOne(newItem)
                 .addOnSuccessListener(result -> {
