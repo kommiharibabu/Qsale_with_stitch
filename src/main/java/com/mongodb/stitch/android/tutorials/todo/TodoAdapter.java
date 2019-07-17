@@ -16,7 +16,9 @@
 
 package com.mongodb.stitch.android.tutorials.todo;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import com.google.android.gms.tasks.Task;
 import java.util.HashSet;
@@ -52,7 +57,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoItemViewHo
       final int viewType
   ) {
     final View v = LayoutInflater.from(parent.getContext())
-        .inflate(R.layout.todo_item, parent, false);
+        .inflate(R.layout.table, parent, false);
 
     return new TodoItemViewHolder(v);
   }
@@ -62,9 +67,51 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoItemViewHo
   public void onBindViewHolder(@NonNull final TodoItemViewHolder holder, final int position) {
     final TodoItem item = todoItems.get(position);
 
-    //holder.taskTextView.setNumColumns(2);
-    holder.taskTextView.setText(item.getStore_name());
-    //holder.taskCheckbox.setChecked(item.isChecked());
+    holder.taskTextView.requestLayout();
+
+    View tableRow = LayoutInflater.from(holder.taskTextView.getContext()).inflate(R.layout.todo_item,null,false);
+    TextView store_name  = (TextView) tableRow.findViewById(R.id.StoreName);
+    TextView store_location  = (TextView) tableRow.findViewById(R.id.StoreLocation);
+    TextView item_description  = (TextView) tableRow.findViewById(R.id.ItemDescription);
+    TextView item_quantity  = (TextView) tableRow.findViewById(R.id.ItemQuantity);
+    TextView org_price  = (TextView) tableRow.findViewById(R.id.OriginalPrice);
+    TextView sale_price  = (TextView) tableRow.findViewById(R.id.SalePrice);
+    TextView expiry_date  = (TextView) tableRow.findViewById(R.id.ExpiryDate);
+
+    //TableRow tableRow = new TableRow(holder.taskTextView.getContext());
+
+    //TextView store_name  = (TextView) tableRow.findViewById(R.id.StoreName);
+    //TextView store_location  = (TextView) tableRow.findViewById(R.id.StoreLocation);
+    //TextView item_description = (TextView) tableRow.findViewById(R.id.ItemDescription);
+
+    //TextView store_name  = new TextView(holder.taskTextView.getContext());
+    //TextView store_location  = new TextView(holder.taskTextView.getContext());
+    //TextView item_description = new TextView(holder.taskTextView.getContext());
+    //TextView item_quantity = new TextView(holder.taskTextView.getContext());
+    //TextView org_price  = new TextView(holder.taskTextView.getContext());
+    //TextView sale_price = new TextView(holder.taskTextView.getContext());
+    //TextView expiry_date = new TextView(holder.taskTextView.getContext());
+
+    store_name.setText(item.getStore_name());
+    store_location.setText(item.getStore_location());
+    item_description.setText(item.getItem_description());
+    item_quantity.setText("" + item.getItem_quantity());
+    org_price.setText("" + item.getOriginal_price());
+    sale_price.setText("" + item.getSale_price());
+    expiry_date.setText(item.getExpiry_date());
+
+
+    //tableRow.addView(store_name);
+    //tableRow.addView(store_location);
+    //tableRow.addView(item_description);
+    //tableRow.addView(item_quantity);
+    //tableRow.addView(org_price);
+    //tableRow.addView(sale_price);
+    //tableRow.addView(expiry_date);
+
+    holder.taskTextView.addView(tableRow);
+    //holder.taskTextView.requestLayout();
+
   }
 
   @Override
@@ -119,12 +166,13 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoItemViewHo
       implements View.OnClickListener,
           View.OnLongClickListener,
           CompoundButton.OnCheckedChangeListener {
-    final TextView taskTextView;
+    final TableLayout taskTextView;
     //final CheckBox taskCheckbox;
 
     TodoItemViewHolder(final View view) {
       super(view);
-      taskTextView = view.findViewById(R.id.StoreName);
+
+      taskTextView = view.findViewById(R.id.table);
       //taskTextView = view.findViewWithTag(R.id.tv_task);
       //taskCheckbox = view.findViewById(R.id.cb_todo_checkbox);
 

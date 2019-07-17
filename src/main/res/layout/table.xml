@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:background="@color/colorPrimary"
+android:id="@+id/table"
+android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="34dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.165"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="10dp"
+        android:text="@string/available_items"
+        android:textColor="@color/colorDarkGray" />
+
+</TableLayout>
