@@ -1,79 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/row_start"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:paddingTop="1dp">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/table"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="*"
+    android:orientation="vertical"
+    android:background="#00f000">
 
     <TextView
-        android:id="@+id/StoreName"
-        android:layout_width="34dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.165"
-        android:gravity="center_vertical|left"
-        android:paddingLeft="10dp"
-        android:text="@string/store_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center"
+        android:text="@string/available_items"
         android:textColor="@color/colorDarkGray" />
 
-    <TextView
-        android:id="@+id/StoreLocation"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="0.5"
-        android:gravity="center"
-        android:text="@string/store_location"
-        android:textColor="@color/colorDarkGray" />
+    <TableRow
+        android:id="@+id/row_start"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#f0ff00">
 
-    <TextView
-        android:id="@+id/ItemDescription"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="0.5"
-        android:gravity="center"
-        android:text="@string/item_description"
-        android:textColor="@color/colorDarkGray" />
+        <TextView
+            android:id="@+id/StoreName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="@string/store_name" />
 
-    <TextView
-        android:id="@+id/ItemQuantity"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="0.5"
-        android:gravity="center"
-        android:text="@string/item_quantity"
-        android:textColor="@color/colorDarkGray" />
+        <TextView
+            android:id="@+id/StoreLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="@string/store_location" />
 
-    <TextView
-        android:id="@+id/OriginalPrice"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="0.5"
-        android:gravity="center"
-        android:text="@string/original_price"
-        android:textColor="@color/colorDarkGray" />
+        <TextView
+            android:id="@+id/ItemDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="@string/item_description" />
 
-    <TextView
-        android:id="@+id/SalePrice"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="0.5"
-        android:gravity="center"
-        android:text="@string/sale_price"
-        android:textColor="@color/colorDarkGray" />
+        <TextView
+            android:id="@+id/ItemQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="@string/item_quantity" />
 
-    <TextView
-        android:id="@+id/ExpiryDate"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="0.5"
-        android:gravity="center"
-        android:text="@string/expiry_date"
-        android:textColor="@color/colorDarkGray" />
+        <TextView
+            android:id="@+id/OriginalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="@string/original_price" />
 
-</TableRow>
+        <TextView
+            android:id="@+id/SalePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="@string/sale_price"/>
+
+        <TextView
+            android:id="@+id/ExpiryDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="@string/expiry_date"/>
+
+    </TableRow>
+</TableLayout>

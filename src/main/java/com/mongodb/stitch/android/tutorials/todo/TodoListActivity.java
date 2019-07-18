@@ -22,9 +22,11 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -85,8 +87,10 @@ public class TodoListActivity extends AppCompatActivity {
 
         // Set up recycler view for to-do items
         final RecyclerView todoRecyclerView = findViewById(R.id.rv_todo_items);
+        //final RecyclerView todoRecyclerView = findViewById(R.layout.activity_todo_list);
         final RecyclerView.LayoutManager todoLayoutManager = new LinearLayoutManager(this);
         todoRecyclerView.setLayoutManager(todoLayoutManager);
+
 
         // Set up adapter
         todoAdapter = new TodoAdapter(
@@ -105,6 +109,7 @@ public class TodoListActivity extends AppCompatActivity {
                     }
                 });
         todoRecyclerView.setAdapter(todoAdapter);
+
         doLogin();
     }
 
